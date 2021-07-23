@@ -21,7 +21,7 @@ steps:
     - title: 'Week 1: Say Hello to VSCode'
       description: 'Task:'
       event: workflow_run.completed
-      stepType: checks
+      stepType: PRmerge
       branch: hello
       actions:
         - type: respond
@@ -31,7 +31,7 @@ steps:
     - title: 'Week 1: Getting Cat Pics with Postman'
       description: 'Task:'
       event: issue_comment.created
-      stepType: IssueComment
+      stepType: PRmerge
       branch: hello
       actions:
         - type: respond
@@ -54,7 +54,7 @@ steps:
     - title: 'Week 1: Week 1 Step 4'
       description: 'Building our first function ⚡[HackerVoice]'
       event: workflow_run.completed
-      stepType: checks
+      stepType: PRmerge
       branch: hackervoice
       actions:
         - type: respond
