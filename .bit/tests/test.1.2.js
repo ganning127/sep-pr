@@ -8,10 +8,23 @@ let hello = undefined
 
 try { hello = require('./../../week1/helloworld.js') }
 catch(e) {
-    let error = "Searching for \"helloworld.js\"... file cannot be found"
     
-    console.log("about to make the fetch for no file");
+    console.log("going to throw error");
     
+    throwError("Searching for \"helloworld.js\"... file cannot be found");
+}
+
+let helloworld = hello()
+let test_output = "Hello World"
+
+if (helloworld != test_output){
+    
+    throwError(`Got: "${helloworld}", was expecting: "${test_output}".`);
+}
+
+console.log("Yay! 🎉🎉🎉🎉🎉🎉🎉🍾")
+
+async function throwError(error) {
     options = {
         method: "POST",
         headers: {
@@ -20,30 +33,7 @@ catch(e) {
             error
         }
     }
-    fetch(endpoint, options)
-    console.log("fetch has been made");
-    
+    await fetch(endpoint, options);
     throw new Error(error);
+    console.log("fetch has been made");
 }
-
-let helloworld = hello()
-let test_output = "Hello World"
-
-if (helloworld != test_output){
-    let error2 = `Got: "${helloworld}", was expecting: "${test_output}".`
-    
-    options = {
-        method: "POST",
-        headers: {
-            user,
-            repo,
-            error: error2
-        }
-    }
-    fetch(endpoint, options)
-    console.log("fetch has been made")
-    
-    throw new Error(error2)
-}
-
-console.log("Yay! 🎉🎉🎉🎉🎉🎉🎉🍾")
