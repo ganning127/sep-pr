@@ -8,8 +8,6 @@ before:
     - type: createIssue
       title: Getting Started with Serverless
       body: 1.1-Week 1 Step 1.md
-    - type: updateBranchProtection
-      
 steps:
     - title: 'Week 1: GitHub'
       description: 'Task:'
@@ -23,7 +21,7 @@ steps:
     - title: 'Week 1: Say Hello to VSCode'
       description: 'Task:'
       event: workflow_run.completed
-      stepType: PRmerge
+      stepType: checks
       branch: hello
       actions:
         - type: respond
@@ -33,7 +31,7 @@ steps:
     - title: 'Week 1: Getting Cat Pics with Postman'
       description: 'Task:'
       event: issue_comment.created
-      stepType: PRmerge
+      stepType: IssueComment
       branch: hello
       actions:
         - type: respond
@@ -56,7 +54,7 @@ steps:
     - title: 'Week 1: Week 1 Step 4'
       description: 'Building our first function ⚡[HackerVoice]'
       event: workflow_run.completed
-      stepType: PRmerge
+      stepType: checks
       branch: hackervoice
       actions:
         - type: respond
