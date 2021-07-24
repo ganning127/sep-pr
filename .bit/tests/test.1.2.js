@@ -11,14 +11,20 @@ async function main() {
     try { hello = require('./../../week1/helloworld.js') }
     catch (e) {
         console.log("going to throw error");
-        await throwError("Searching for 'helloworld.js'... file cannot be found");
+        throwError("Searching for 'helloworld.js'... file cannot be found")
+            .catch(e => {
+                throw new Error(e);
+            })
     }
 
     let helloworld = hello()
     let test_output = "Hello World"
 
     if (helloworld != test_output) {
-        await throwError(`Got: '${helloworld}', was expecting: '${test_output}'.`)
+        throwError(`Got: '${helloworld}', was expecting: '${test_output}'.`)
+            .catch(e => {
+                throw new Error(e);
+            })
     }
 
     console.log("Yay! 🎉🎉🎉🎉🎉🎉🎉🍾")
