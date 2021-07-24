@@ -6,23 +6,27 @@ const endpoint = "https://counselorbot.azurewebsites.net/api/hasuraErrorUpdate?c
 
 let hello = undefined
 
-try { hello = require('./../../week1/helloworld.js') }
-catch(e) {
-    
-    console.log("going to throw error");
-    
-    throwError("Searching for \"helloworld.js\"... file cannot be found");
-}
+async function main() {
+    try { hello = require('./../../week1/helloworld.js') }
+    catch(e) {
 
-let helloworld = hello()
-let test_output = "Hello World"
+        console.log("going to throw error");
 
-if (helloworld != test_output){
-    
-    throwError(`Got: "${helloworld}", was expecting: "${test_output}".`);
-}
+        await hrowError("Searching for \"helloworld.js\"... file cannot be found");
+    }
+
+    let helloworld = hello()
+    let test_output = "Hello World"
+
+    if (helloworld != test_output){
+
+        await throwError(`Got: "${helloworld}", was expecting: "${test_output}".`);
+    }
 
 console.log("Yay! 🎉🎉🎉🎉🎉🎉🎉🍾")
+}
+
+main();
 
 async function throwError(error) {
     options = {
