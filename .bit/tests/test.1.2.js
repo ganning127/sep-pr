@@ -12,7 +12,7 @@ async function main() {
 
         console.log("going to throw error");
 
-        await hrowError("Searching for \"helloworld.js\"... file cannot be found");
+        await throwError("Searching for \"helloworld.js\"... file cannot be found");
     }
 
     let helloworld = hello()
