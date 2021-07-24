@@ -12,7 +12,10 @@ async function main() {
 
         console.log("going to throw error");
 
-        await throwError("Searching for \"helloworld.js\"... file cannot be found");
+        await throwError("Searching for \"helloworld.js\"... file cannot be found")
+                .catch(e) {
+                    throw new Error("Error! Something bad happened");    
+                }
     }
 
     let helloworld = hello()
@@ -20,7 +23,10 @@ async function main() {
 
     if (helloworld != test_output){
 
-        await throwError(`Got: "${helloworld}", was expecting: "${test_output}".`);
+        await throwError(`Got: "${helloworld}", was expecting: "${test_output}".`)
+            .catch(e) {
+                    throw new Error("Error! Something bad happened");    
+              }
     }
 
 console.log("Yay! 🎉🎉🎉🎉🎉🎉🎉🍾")
