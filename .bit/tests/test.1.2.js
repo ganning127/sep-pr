@@ -12,9 +12,7 @@ async function main() {
     catch (e) {
         console.log("going to throw error");
         await throwError("Searching for 'helloworld.js'... file cannot be found")
-            .catch(e => {
-                throw new Error(e);
-            })
+        process.exit(1);
     }
 
     let helloworld = hello()
@@ -22,9 +20,7 @@ async function main() {
 
     if (helloworld != test_output) {
         await throwError(`Got: '${helloworld}', was expecting: '${test_output}'.`)
-            .catch(e => {
-                throw new Error(e);
-            })
+        process.exit(1);
     }
 
     console.log("Yay! 🎉🎉🎉🎉🎉🎉🎉🍾")
@@ -42,12 +38,13 @@ async function throwError(error) {
     }
     await fetch(endpoint, options)
 
-    throw new Error(error);
+    process.exit(1);
+
 
     console.log("fetch has been made");
 }
 
 main()
     .catch(e => {
-        throw new Error(e)
+        process.exit(1);
     })
