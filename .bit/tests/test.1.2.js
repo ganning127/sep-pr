@@ -10,6 +10,8 @@ try { hello = require('./../../week1/helloworld.js') }
 catch(e) {
     let error = "Searching for \"helloworld.js\"... file cannot be found"
     
+    console.log("about to make the fetch for no file");
+    
     options = {
         method: "POST",
         headers: {
@@ -18,7 +20,7 @@ catch(e) {
             error
         }
     }
-    await fetch(endpoint, options)
+    fetch(endpoint, options)
     console.log("fetch has been made");
     
     throw new Error(error);
@@ -38,7 +40,7 @@ if (helloworld != test_output){
             error: error2
         }
     }
-    await fetch(endpoint, options)
+    fetch(endpoint, options)
     console.log("fetch has been made")
     
     throw new Error(error2)
