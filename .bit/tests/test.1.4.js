@@ -21,9 +21,9 @@ async function main() {
 
     for (var i = 0; i < commit_file.length; i++) {
         var a = commit_file[i];
-        fs.access(commit_file[i], (err) => {
+        fs.access(commit_file[i], async (err) => {
             if (err) {
-                throwError(`You did not commit '${a}'`);
+                await throwError(`You did not commit '${a}'`);
             }
         })
     }
