@@ -12,7 +12,7 @@ uri = process.env.HACKERVOICE_ENDPOINT;
 
 async function main() {
     if (uri == undefined || uri[0] != "h") {
-        // await throwError("You have not added your function url as a secret!");
+        await throwError("You have not added your function url as a secret!");
     }
 
     //if you wanna add more files, just put a comma after the filename (array)
