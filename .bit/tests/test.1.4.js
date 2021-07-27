@@ -1,77 +1,39 @@
-let uri;
-const args = require('minimist')(process.argv.slice(2))
+let uri = undefined
 const fetch = require('node-fetch');
-const fs = require('fs') //get the methods in the fs package
-
-const user = args['user'];
-const repo = args['repo'];
-
-let endpoint;
+const functions = require('./functions.js')
 
 uri = process.env.HACKERVOICE_ENDPOINT;
 
-async function main() {
-    if (uri == undefined || uri[0] != "h") {
-        await throwError("You have not added your function url as a secret!");
-    }
+functions.checkSecret(uri, "HACKERVOICE_ENDPOINT")
 
-    //if you wanna add more files, just put a comma after the filename (array)
+//if you wanna add more files, just put a comma after the filename (array)
 
-    const commit_file = ['hackervoice/index.js']
+const commit_file = ['hackervoice/index.js']
+functions.checkCommit(commit_file)
 
-    for (var i = 0; i < commit_file.length; i++) {
-        var a = commit_file[i];
-        fs.access(commit_file[i], async (err) => {
-            if (err) {
-                await throwError(`You did not commit '${a}'`);
-            }
-        })
-    }
+uri = functions.queryString(uri)
 
-    test1 = "fifiiscool";
-    uri1 = uri + "&password=" + test1;
-    if (uri[0] != "h") {
-        await throwError("You have not added your function url as a secret!");
-    }
-    try {
-        try {
-            const resp = await fetch(uri1, {
-                method: 'GET'
-            });
-            var data = await resp.text()
-            let test = JSON.stringify(data)
+test1 = "fifiiscool";
+uri1 = uri + "&password=" + test1;
 
-            if (data == test1) {
-                console.log("Yay! 🎉 We got: " + JSON.stringify(data) + ", which matches our input.")
-            } else {
-                await throwError(`We got this '${JSON.stringify(data)}'. We should have gotten our input, 'fifiiscool' ... Try again!`);
-            }
+try {
+    (async () => {
+        const resp = await fetch(uri1, {
+            method: 'GET'
+        });
+        var data = await resp.text()
+        let test = JSON.stringify(data)
+
+        functions.validateResponseStatus(resp, uri)
+
+        if (data == test1) {     
+            console.info("Yay! 🎉 We got: " + JSON.stringify(data) + ", which matches our input.")
+        } else {
+            console.error("We got this " + JSON.stringify(data) + ". We should have gotten our input, 'fifiiscool' ... Try again!")
+            process.exit(1)
         }
-        catch (e) { await throwError(`Try again! We got this error when trying to make a request: ${e}`); }
-    } catch (e) {
-        throw new Error("You have not added your function url as a secret!");
-    }
-
+    })().catch( e => { console.error("Try again! We got this error when trying to make a request: " + e); process.exit(1) })
+} catch (e) {
+    console.error("You have not added your function url as a secret!");
+    process.exit(1)
 }
-
-main();
-
-
-
-
-
-async function throwError(error) {
-    const endpoint = "https://counselorbot.azurewebsites.net/api/hasuraErrorUpdate?code=qL2oUjo1aUIBdfJe3VhEF41qRQBSnShZwPGr3dujRwvtOGa855fLoA==";
-    options = {
-        method: "POST",
-        headers: {
-            user,
-            repo,
-            error
-        }
-    }
-    await fetch(endpoint, options)
-
-    process.exit(1);
-}
-
